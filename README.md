@@ -1,2 +1,4 @@
 # AutoXcarchive
 iOS自动打包脚本xcworkspace，支持多target自动化打包
+本脚本仅适用于本人的项目
+请勿完全复制粘贴运行，请按需修改
