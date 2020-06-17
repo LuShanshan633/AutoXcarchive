@@ -2,7 +2,7 @@
 
 # auto packing for iOS
 # shell+xcodebuild packing for iOS
-# by biostome 2019-5-19
+# by lss 2020-6-17
 
 # 说明
 # 此脚本目前只针对有工作空间workspace文件的打包。
