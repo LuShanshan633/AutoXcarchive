@@ -13,11 +13,11 @@
 # 请全局搜索【配置】配置内容。
 
 # 【配置】项目目录
-__workSpace_path="/Users/yingju/Desktop/Change/LSSEasyChat"
-__project_path="/Users/yingju/Desktop/Change/LSSEasyChat/wfchat"
+__workSpace_path="*************/Desktop/Change/LSSEasyChat"
+__project_path="*************/Desktop/Change/LSSEasyChat/wfchat"
 
 #—————————————— 目录地址 --------------
-__auto_packing_path="/Users/yingju/Desktop/Change"
+__auto_packing_path="*************/Desktop/Change"
 
 # 【检查和配置】请修改Plist/AdHocExportOptionsPlist.plist文件，这个文件可以通过手动打包方式导出一次就会自动生成，复制出来用就可以了，当然也可以自己手动新建。
 # 这里用的是adhoc打包方式，需要其他的打包方式请自己生成plist文件。
@@ -55,19 +55,13 @@ __project_name=`ls $__project_path | grep .xcodeproj | sed 's/.xcodeproj//g'`
 echo ${__project_name}
 # 获取workspace名称
 __work_space_name="${__project_name}"
-## 手动设置Targets
-#__targets=("立信")
-##设置服务器
-#__services=("lx")
-##plist文件
-#__infoPlists=("LXWildFireChat-Info.plist")
-
 # 手动设置Targets
-__targets=( "易聊聊" "尊聊" "发聊" "71聊" "微探" "吉聊" "61聊吧" "C5聊吧" "众聊" "WB聊吧" "微聊" "九州" "91聊吧" "联盟聊吧" "乐博聊吧" "立信"  "聊99" "天下聊吧" "网易聊吧")
+__targets=("立信")
 #设置服务器
-__services=( "yf" "zc" "df" "c71" "7c" "jl" "ly" "cw" "zl" "wbl" "wl" "jz" "jy" "cp" "lb" "lx" "ljj" "tx" "wy")
+__services=("lx")
 #plist文件
-__infoPlists=( "YLLWildFireChat-Info.plist" "ZCWildFireChat-Info.plist" "DFWildFireChat-Info.plist" "CQYWildFireChat-Info.plist" "QCWildFireChat-Info.plist" "JLWildFireChat-Info.plist" "LYWildFireChat-Info.plist" "CWWildFireChat-Info.plist" "ZLWildFireChat-Info.plist" "WBLWildFireChat-Info.plist" "WLWildFireChat-Info.plist" "JZWildFireChat-Info.plist" "JYWildFireChat-Info.plist" "CPWildFireChat-Info.plist" "LBWildFireChat-Info.plist" "LXWildFireChat-Info.plist" "LJJWildFireChat-Info.plist" "TXWildFireChat-Info.plist" "WYWildFireChat-Info.plist")
+__infoPlists=("LXWildFireChat-Info.plist")
+
 ## 手动设置Targets
 #__targets=( "易聊聊" "尊聊" "发聊" "71聊" "微探" "吉聊" "61聊吧" "C5聊吧" "众聊" "WB聊吧" "微聊" "九州" "91聊吧" "联盟聊吧" "乐博聊吧" "立信"  "聊99" "天下聊吧" "网易聊吧")
 ##设置服务器
@@ -99,13 +93,14 @@ xcodebuild clean -configuration Release -alltargets
 __index=0
 for scheme in ${__targets[@]}; do
 
+    #config.plist路径
     PlistPath=${__project_path}/WildFireChat/config.plist
-    #修改config的服务器平台
+    #修改config.plist的服务器平台
     /usr/libexec/PlistBuddy -c "Set :target ${__services[__index]}" "$PlistPath"
-    #修改infoPlist的版本号（年月日时分+index）
+    #infoplist文件路径
     info_plist="${__project_path}/InfoPlist/${__infoPlists[__index]}"
-    echo "Updating build __services to ${__services[__index]}"
-    echo "Updating build __infoPlists to ${__infoPlists[__index]}"
+
+
     let __index=$__index+1
     __buildtime=$(date "+%Y%m%d%H%M"$__index)
     if [ $__index -lt 10 ]
@@ -115,7 +110,7 @@ for scheme in ${__targets[@]}; do
     fi
     
     echo "Updating build __buildtime to ${__buildtime}"
-
+    #修改infoPlist的版本号（年月日时分+index）
     /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${__buildtime}" "${info_plist}"
 
     # 编译 ".xcarchive" 文件的存放地址
